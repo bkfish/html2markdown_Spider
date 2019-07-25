@@ -148,7 +148,9 @@ def write2md(dirpath,title,article):
     if not os.path.exists(dirpath):# 判断目录是否存在，不存在则创建新的目录
         os.makedirs(dirpath)
     # 创建md文件
-    with open(dirpath+title.replace('*','-').replace('|','-').replace(':','-').replace('\'','-').replace('"','-').replace('：','-').replace('】','-').replace('【','-').replace('/','-').replace('\\','-').replace('[','').replace(']','').replace('<','').replace('>','').replace('!','').replace('_','').replace(' ','').replace('-','')[0:30]+'.md','w',encoding="utf8") as f:
+    cop = re.compile("[^\u4e00-\u9fa5^a-z^A-Z^0-9]")
+    newtitle=cop.sub('', title)
+    with open(dirpath+newtitle[0:30]+'.md','w',encoding="utf8") as f:
         lines = article.splitlines()
         for line in lines:
             if line.endswith('-'):
@@ -161,7 +163,7 @@ def write2md(dirpath,title,article):
 
 
 def main():
-    file = open("CTF-php.txt") 
+    file = open("CTF-wp.txt") 
     for line in file.readlines():
         line=line.strip('\n')
         try:
