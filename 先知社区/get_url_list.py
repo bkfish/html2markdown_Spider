@@ -22,10 +22,12 @@ def csdn(url):
     }
     ## 获取网页主体
     html = requests.get(url,headers=headers).text
+    print(html)
     ## bs4
     #soup = BeautifulSoup(html,'lxml')
-   # title = soup.find_all('title')[0].get_text()
-    url_list = re.findall(r"\"topic-title\" href=\".+?\" target", html)
+   	#title = soup.find_all('title')[0].get_text()
+    url_list = re.findall(r"\"topic-title\" href=\".+?\">", html)
+    #print(url_list)
     for i in url_list:
         rel_url="https://xz.aliyun.com"+i[20:].split('"')[0]
         print(rel_url)
@@ -34,8 +36,8 @@ def csdn(url):
 
 csdn("https://xz.aliyun.com/?page=2")
  
-for i in range(1,104):
-    url="https://xz.aliyun.com/?page="+str(i)
+for i in range(1,2):
+    url="https://xz.aliyun.com/?keyword=pwn&page="+str(i)
     print(url)
     csdn(url)
 f.close()
