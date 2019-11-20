@@ -5,6 +5,7 @@ import requests
 import random
 import re
 import html2text
+import json
 from bs4 import BeautifulSoup
 
 useragents = [
@@ -26,15 +27,18 @@ def jianshu(url):
     ## bs4
     soup = BeautifulSoup(html,"lxml")
     title = soup.find_all("title")[0].get_text()
-    article = str(soup.find_all("div",class_="show-content")[0])
-
+    print("title:"+title)
+    article = str(soup.find_all("script", id='__NEXT_DATA__')[0].get_text())
+    article_json = json.loads(article)
     ## 替图片的src加上https://方便访问
-    article = re.sub('(src=")|(data-original-src=")','src="https:',article)
-
+    print(type(article_json))
+    new_article=str(article_json["props"]["initialState"]["note"]["data"]["free_content"])
+    new_article = re.sub('(src=")|(data-original-src=")','src="https:',new_article)
+    new_article="# "+title+"\n"+new_article
     ## 写入文件
     pwd = os.getcwd() # 获取当前的文件路径
     dirpath = pwd + '/jianshu/'
-    write2md(dirpath,title,article)
+    write2md(dirpath,title,new_article)
     
     
 def csdn(url):
