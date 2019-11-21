@@ -66,12 +66,17 @@ def xianzhi_spider(url):
     soup = BeautifulSoup(html,'html.parser')
     pwd = os.getcwd() # 获取当前的文件路径
     dirpath = pwd + '/xianzhi/'
-    title = soup.find_all('title')[0].get_text()
-    article = str(soup.find_all("div",class_="topic-content markdown-body")[0])
-    #print(article)
-    title=title.replace('?','-').replace('*','-').replace('|','-').replace('=','-').replace(':','-').replace('\'','-').replace('"','-').replace('：','-').replace('】','-').replace('【','-').replace('/','-').replace('\\','-').replace('[','').replace(']','').replace('<','').replace('>','').replace('!','').replace('_','').replace(' ','').replace('-','')[0:30]
-    write2md(dirpath,title,article)
+    try:
+	    title = soup.find_all('title')[0].get_text()
+	    article = str(soup.find_all("div",class_="topic-content markdown-body")[0])
+	    #print(article)
+	    title=title.replace('?','-').replace('*','-').replace('|','-').replace('=','-').replace(':','-').replace('\'','-').replace('"','-').replace('：','-').replace('】','-').replace('【','-').replace('/','-').replace('\\','-').replace('[','').replace(']','').replace('<','').replace('>','').replace('!','').replace('_','').replace(' ','').replace('-','')[0:30]
+	    write2md(dirpath,title,article)
     #print(html)
+    except Exception as e:
+    	print('发生错误')
+    	return
+
 
 def write2md(dirpath,title,article):
     ## 创建转换器

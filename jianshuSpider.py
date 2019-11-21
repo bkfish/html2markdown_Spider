@@ -47,21 +47,25 @@ def jianshu(url):
     html = requests.get(url,headers=headers).text
 
     ## bs4
-    soup = BeautifulSoup(html,"lxml")
-    title = soup.find_all("title")[0].get_text()
-    #print("title:"+title)
-    article = str(soup.find_all("script", id='__NEXT_DATA__')[0].get_text())
-    article_json = json.loads(article)
-    ## 替图片的src加上https://方便访问
-    #print(type(article_json))
-    new_article=str(article_json["props"]["initialState"]["note"]["data"]["free_content"])
-    new_article = re.sub('(src=")|(data-original-src=")','src="https:',new_article)
-    new_article="# "+title+"\n"+new_article
-    ## 写入文件
-    pwd = os.getcwd() # 获取当前的文件路径
-    dirpath = pwd + '/jianshu/'
-    title=title.replace('*','?').replace('*','-').replace('|','-').replace('=','-').replace(':','-').replace('\'','-').replace('"','-').replace('：','-').replace('】','-').replace('【','-').replace('/','-').replace('\\','-').replace('[','').replace(']','').replace('<','').replace('>','').replace('!','').replace('_','').replace(' ','').replace('-','')[0:30]
-    write2md(dirpath,title,new_article)
+    soup = BeautifulSoup(html,"html.parser")
+    try:
+        title = soup.find_all("title")[0].get_text()
+        #print("title:"+title)
+        article = str(soup.find_all("script", id='__NEXT_DATA__')[0].get_text())
+        article_json = json.loads(article)
+        ## 替图片的src加上https://方便访问
+        #print(type(article_json))
+        new_article=str(article_json["props"]["initialState"]["note"]["data"]["free_content"])
+        new_article = re.sub('(src=")|(data-original-src=")','src="https:',new_article)
+        new_article="# "+title+"\n"+new_article
+        ## 写入文件
+        pwd = os.getcwd() # 获取当前的文件路径
+        dirpath = pwd + '/jianshu/'
+        title=title.replace('*','?').replace('*','-').replace('|','-').replace('=','-').replace(':','-').replace('\'','-').replace('"','-').replace('：','-').replace('】','-').replace('【','-').replace('/','-').replace('\\','-').replace('[','').replace(']','').replace('<','').replace('>','').replace('!','').replace('_','').replace(' ','').replace('-','')[0:30]
+        write2md(dirpath,title,new_article)
+    except Exception as e:
+        print("error")
+
 
 def write2md(dirpath,title,article):
     ## 创建转换器
