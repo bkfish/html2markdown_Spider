@@ -18,7 +18,7 @@ print("------------------\n标准姿势python xianzhiSpider.py -s CTF -c 2 -p 1 
 
 ap = argparse.ArgumentParser()
 #自定义参数（简写，全写，是否必需，说明）
-ap.add_argument("-s","--search",required = True, help = "你要搜索的关键字",default='CTF')
+ap.add_argument("-s","--search",required = False, help = "你要搜索的关键字",default='')
 ap.add_argument("-c","--count",required = False, help = "你要搜索的文章数目。默认30",default='30')
 ap.add_argument("-p","--is_need_pic",required = False, help = "是否需要图床",default=0)
 #python demo.py -s CTF -c 2 -p 1
@@ -65,7 +65,7 @@ def xianzhi_spider(url):
     html = requests.get(url,headers=headers).text
     soup = BeautifulSoup(html,'html.parser')
     pwd = os.getcwd() # 获取当前的文件路径
-    dirpath = pwd + '/output/'
+    dirpath = pwd + '/xianzhi/'
     title = soup.find_all('title')[0].get_text()
     article = str(soup.find_all("div",class_="topic-content markdown-body")[0])
     #print(article)
@@ -108,7 +108,7 @@ file.close()
 
 print("爬取博文完毕\n------------------\n开始更改图床")
 
-pro_dir="./output/"
+pro_dir="./xianzhi/"
 dirs=os.listdir(pro_dir)
 def model_picture_download(model_picture_url, file_dir,text,new_pic):
     headers = {
@@ -141,13 +141,13 @@ if is_need_pic==0 :
    print("------------------\n你选择了不需要本地图床哦本次服务到此结束")
 else:
    print("正在更换图床\n")
-   img_path="./output/img"
+   img_path="./xianzhi/img"
    if(os.path.exists(img_path)):
-      print("./output/img文件夹已经存在-正在更换图床\n")
+      print("./xianzhi/img文件夹已经存在-请先删除文件夹哦\n")
    else:
-      print("./output/img文件夹不存在-新建文件夹中ing\n")
+      print("./xianzhi/img文件夹不存在-新建文件夹中ing\n")
       os.makedirs(img_path)
-      print("./output/img文件夹已经存在-正在更换图床\n")
+      print("./xianzhi/img文件夹已经存在-正在更换图床\n")
       for file in dirs:
          if file!="img":
             f=open(pro_dir+file,"r+",encoding='utf-8')
@@ -158,7 +158,7 @@ else:
             pic_list=re.findall(r"!\[\]\(.+?\)", text) #找到了所有文件
             for pic in pic_list:
                pic_url=pic[4:].split('\)')[0].replace(")","")
-               #print(pic_url)
+               print(pic_url)
                new_pic=str(hash(pic_url))+'.png'
                new_pic=new_pic.replace("-","")
                try:
