@@ -60,7 +60,7 @@ def jianshu(url):
     ## 写入文件
     pwd = os.getcwd() # 获取当前的文件路径
     dirpath = pwd + '/jianshu/'
-    title=title.replace('*','-').replace('|','-').replace('=','-').replace(':','-').replace('\'','-').replace('"','-').replace('：','-').replace('】','-').replace('【','-').replace('/','-').replace('\\','-').replace('[','').replace(']','').replace('<','').replace('>','').replace('!','').replace('_','').replace(' ','').replace('-','')[0:30]
+    title=title.replace('*','?').replace('*','-').replace('|','-').replace('=','-').replace(':','-').replace('\'','-').replace('"','-').replace('：','-').replace('】','-').replace('【','-').replace('/','-').replace('\\','-').replace('[','').replace(']','').replace('<','').replace('>','').replace('!','').replace('_','').replace(' ','').replace('-','')[0:30]
     write2md(dirpath,title,new_article)
 
 def write2md(dirpath,title,article):
