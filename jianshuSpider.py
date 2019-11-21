@@ -180,7 +180,7 @@ def main():
             if p_count==org_count:
                 break
         except Exception as e:
-            raise e
+            print("error")
     file.close()
     pro_dir="./jianshu/"
     dirs=os.listdir(pro_dir)

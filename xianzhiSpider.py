@@ -108,7 +108,7 @@ for line in file.readlines():
         if p_count==org_count:
             break
     except Exception as e:
-        raise e
+    	print("error")
 file.close()
 
 print("爬取博文完毕\n------------------\n开始更改图床")
