@@ -22,7 +22,7 @@ cd xianzhiSpider
 pip install -r requirements.txt
 python jianshuSpider.py -s CTF -c 5 -p 1
 ```
-生成的内容放于同目录./jianshu文件夹下，建议-c最大开至500
+生成的内容放于同目录./jianshu文件夹下，因为简书最多只能100页每页10篇文章 所以-c最大开至1000
 
 
 ### !! 第二次使用请删除文件夹内的img子文件夹，建议将整个jianshu/xianzhi文件夹转移位置再进行下一次爬取
