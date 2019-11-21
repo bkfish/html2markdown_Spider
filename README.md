@@ -27,6 +27,6 @@ python jianshuSpider.py -s CTF -c 5 -p 1
 
 ### !! 第二次使用请删除文件夹内的img子文件夹，建议将整个jianshu/xianzhi文件夹转移位置再进行下一次爬取
 
-![](1.png)
+![](1.jpg)
 
 仅供学习，禁止商用行为
