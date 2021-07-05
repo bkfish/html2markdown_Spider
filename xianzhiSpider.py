@@ -5,6 +5,7 @@ import getopt
 import requests
 import random
 import re
+import time
 import html2text
 from bs4 import BeautifulSoup
 import argparse
@@ -172,7 +173,7 @@ else:
                   print(pic_url)
                   print(new_pic)
                except Exception as e:
-                  print(e)
+                  pass
                continue
                
             f=open(pro_dir+file,"w+",encoding='utf-8')
