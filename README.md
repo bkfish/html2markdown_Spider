@@ -6,9 +6,11 @@
 - -c 需要文章的数目，默认30
 - -p 是否需要建立本地图床，默认0 0代表不需要 1代表需要
 
-### 先知社区
+### 先知社区 2021-6月更新
+
+xz增加了反爬，没得时间逆向了，手动访问一次https://xz.aliyun.com/，更新第38行的acw_sc__v2字段即可
 ```bash
-git clone https://github.com/Kit4y/xianzhiSpider
+https://github.com/bkfish/html2markdown_Spider
 cd xianzhiSpider
 pip install -r requirements.txt
 python xianzhiSpider.py -s CTF -c 10 -p 1

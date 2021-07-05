@@ -33,7 +33,10 @@ if is_need_pic==0 :
    print(", 而且你不需要本地图床~")
 else:
    print(", 而且你需要本地图床~")
-
+headers = {
+    'User-Agent': random.choice(useragents),
+    'Cookie': "acw_sc__v2=60e2724ed9afe830bf6b554c0e235429411565a8"
+}
 # print(serach_word)
 # print(count)
 # print(pic)
@@ -44,10 +47,6 @@ f=open("url_list.txt","w",encoding="utf-8")
 for i in range(1,page_count+1):
     url="https://xz.aliyun.com/search?keyword="+serach_word+"&page="+str(i)
     print(url)
-    headers = {
-        'User-Agent': random.choice(useragents),
-        'Cookie': "acw_sc__v2=60e26e8d45d4ec2def17f7853da8976d32b6ec5f"
-    }
     html = requests.get(url,headers=headers).text
     print(html)
     url_list = re.findall(r"\"topic-title\" href=\".+?\">", html)
@@ -59,16 +58,13 @@ f.close()
 print("爬取链接完毕\n------------------\n开始爬取博文")
 
 def xianzhi_spider(url):
-    headers = {
-        
-        'User-Agent': random.choice(useragents),
-        'Cookie': "acw_sc__v2=60e26e8d45d4ec2def17f7853da8976d32b6ec5f"
-    }
     ## 获取网页主体
     html = requests.get(url,headers=headers).text
     soup = BeautifulSoup(html,'html.parser')
     pwd = os.getcwd() # 获取当前的文件路径
     dirpath = pwd + '/xianzhi/'
+    if not os.path.exists(dirpath):
+        os.makedirs(dirpath) 
     try:
 	    title = soup.find_all('title')[0].get_text()
 	    article = str(soup.find_all("div",class_="topic-content markdown-body")[0])
@@ -117,6 +113,8 @@ file.close()
 print("爬取博文完毕\n------------------\n开始更改图床")
 
 pro_dir="./xianzhi/"
+if not os.path.exists(pro_dir):# 判断目录是否存在，不存在则创建新的目录
+    os.makedirs(pro_dir)
 dirs=os.listdir(pro_dir)
 def model_picture_download(model_picture_url, file_dir,text,new_pic):
     headers = {
