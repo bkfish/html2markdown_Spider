@@ -43,15 +43,17 @@ else:
 f=open("url_list.txt","w",encoding="utf-8")
 for i in range(1,page_count+1):
     url="https://xz.aliyun.com/search?keyword="+serach_word+"&page="+str(i)
-    #print(url)
+    print(url)
     headers = {
-        'User-Agent': random.choice(useragents)
+        'User-Agent': random.choice(useragents),
+        'Cookie': "acw_sc__v2=60e26e8d45d4ec2def17f7853da8976d32b6ec5f"
     }
     html = requests.get(url,headers=headers).text
+    print(html)
     url_list = re.findall(r"\"topic-title\" href=\".+?\">", html)
     for i in url_list:
         rel_url="https://xz.aliyun.com"+i[20:].split('"')[0]
-        #print(rel_url)
+        print(rel_url)
         f.write(rel_url+"\n")
 f.close()
 print("爬取链接完毕\n------------------\n开始爬取博文")
@@ -59,7 +61,8 @@ print("爬取链接完毕\n------------------\n开始爬取博文")
 def xianzhi_spider(url):
     headers = {
         
-        'User-Agent': random.choice(useragents)
+        'User-Agent': random.choice(useragents),
+        'Cookie': "acw_sc__v2=60e26e8d45d4ec2def17f7853da8976d32b6ec5f"
     }
     ## 获取网页主体
     html = requests.get(url,headers=headers).text
