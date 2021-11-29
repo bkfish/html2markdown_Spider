@@ -1,4 +1,8 @@
+## 本项目停止更新，因为网站的接口已经换了暂时不能用了，需要请移步其他大佬的版本
+感谢天河大佬维护，船新版本  https://github.com/qiannianshuangxue/safe_message_spider
+
 ### 基于python3 将先知/简书的博客通过关键字爬取到本地转为markdown格式，并建立本地图床
+
 目前只支持简书和先知社区
 ### 参数说明
 
